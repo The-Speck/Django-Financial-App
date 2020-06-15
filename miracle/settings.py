@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q%#+p-t3udmjg%553iznp9&8f6$sir9d+mqp!l*ka%ba!a=^k8'
+SECRET_KEY = 'q%#+pasd-t3udmjg%553iznp9&8f6$sir9d+mqp!l*ka%ba!a=^k8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Mircale Apps
-    'news.apps.NewsConfig'
+    'account',
+    # 'news.apps.NewsConfig',
     'rest_framework'
 ]
 
@@ -125,6 +126,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Custom options
+AUTH_USER_MODEL = 'account.Account'
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
