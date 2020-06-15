@@ -15,9 +15,7 @@ class AccountTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class AccountSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-        required=True
-    )
+    email = serializers.EmailField(required=True)
     username = serializers.CharField()
     password = serializers.CharField(min_length=8, write_only=True)
 
