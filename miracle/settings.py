@@ -1,3 +1,4 @@
+# pylint: disable=unused-wildcard-import
 """
 Django settings for miracle project.
 
@@ -12,9 +13,33 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from datetime import timedelta
+if os.environ.get('DJANGO_DEVELOPMENT') is not None:
+    print("Starting with Production Setting")
+    from .prod_settings import *
+else:
+    print("Starting with Development Setting")
+    from .dev_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+ALLOWED_HOSTS = ALLOWED_HOSTS
+DATABASES = DATABASES
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': ACCESS_TOKEN_LIFETIME,
+    'REFRESH_TOKEN_LIFETIME': REFRESH_TOKEN_LIFETIME,
+    'ROTATE_REFRESH_TOKENS': ROTATE_REFRESH_TOKENS,
+    'BLACKLIST_AFTER_ROTATION': BLACKLIST_AFTER_ROTATION,
+    'ALGORITHM': ALGORITHM,
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': VERIFYING_KEY,
+    'AUTH_HEADER_TYPES': AUTH_HEADER_TYPES,
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
 
 # Application definition
 
