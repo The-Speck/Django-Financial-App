@@ -1,12 +1,12 @@
-from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import permissions, status
+from rest_framework.decorators import (api_view, authentication_classes,
+                                       permission_classes)
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-
-from .serializers import AccountTokenObtainPairSerializer, AccountSerializer
+from .serializers import AccountSerializer, AccountTokenObtainPairSerializer
 
 
 class ObtainTokenPairWithColorView(TokenObtainPairView):
@@ -14,8 +14,12 @@ class ObtainTokenPairWithColorView(TokenObtainPairView):
     serializer_class = AccountTokenObtainPairSerializer
 
 
-class AccountCreate(APIView):
+class Account(APIView):
     permission_classes = (permissions.AllowAny,)
+
+    def get(self, request):
+        serializer = AccountSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format='json'):
         serializer = AccountSerializer(data=request.data)
