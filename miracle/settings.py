@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from datetime import timedelta
+
 if os.environ.get('DJANGO_DEVELOPMENT') is not None:
     print("Starting with Production Setting")
     from .prod_settings import *
@@ -44,6 +45,7 @@ SIMPLE_JWT = {
 # Application definition
 
 INSTALLED_APPS = [
+    # Native Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,13 +53,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Third Party
+    'corsheaders',
+    'rest_framework',
+
     # Mircale Apps
     'account',
     # 'news.apps.NewsConfig',
-    'rest_framework'
 ]
 
 MIDDLEWARE = [
+    # Third Party
+    'corsheaders.middleware.CorsMiddleware',
+
+    # Native Django
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
